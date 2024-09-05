@@ -7,7 +7,7 @@ const {
   verifyToken,
   ApplySecretKey,
   ApplyCacheTime
-} = require('./cipher')
+} = require('@shivamycodee/confession')
 const app = express();
 const PORT = 3000;
 
