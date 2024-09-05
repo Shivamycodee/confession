@@ -1,0 +1,41 @@
+{
+  "name": "@shivamycodee/confession",
+  "version": "1.0.0",
+  "description": "A package for a secure commuite to your server from browser.",
+  "keywords": [
+    "jwt",
+    "express",
+    "api",
+    "network",
+    "security"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "cache.json",
+      "/cache.json"
+    ]
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "author": "Shivam Yadav <shivamyadav8758@gmail.com> (https://shivamyadav.codes)",
+  "license": "MIT",
+  "homepage": "https://github.com/Shivamycodee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shivamycodee/confession"
+  },
+  "bugs": {
+    "url": "https://github.com/Shivamycodee/confession/issues",
+    "email": "bugs@gmail.com"
+  }
+}
