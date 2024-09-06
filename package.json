@@ -1,8 +1,9 @@
 {
   "name": "@shivamycodee/confession",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "A package for a secure commuite to your server from browser.",
   "main": "index.js",
+  "type": "commonjs",
   "keywords": [
     "jwt",
     "express",
@@ -14,7 +15,10 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5"
   },
   "nodemonConfig": {
     "ignore": [
@@ -23,10 +27,7 @@
     ]
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "crypto-js": "^4.2.0",
-    "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2"
+    "crypto-js": "^4.2.0"
   },
   "author": "Shivam Yadav <shivamyadav8758@gmail.com> (https://shivamyadav.codes)",
   "license": "MIT",

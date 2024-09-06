@@ -33,6 +33,12 @@ npm install @shivamycodee/confession
 
 Here's an example of how to use the `@shivamycodee/confession` package in an Express.js application:
 
+# Install this packges for your server code...
+
+```bash
+npm install express cors jsonwebtoken
+```
+
 ```javascript
 const express = require('express');
 const cors = require('cors');
