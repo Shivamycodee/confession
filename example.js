@@ -17,7 +17,7 @@ app.use(verifyToken);
 app.use(blockPostmanRequests);
 
 ApplySecretKey('i3ifjnqwfin-2q938in2')
-ApplyCacheTime(40);
+ApplyCacheTime(40); // 40 seconds...
 
 app.get('/generateJWT/:mixer?',(req,res)=>{
 

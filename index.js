@@ -102,7 +102,9 @@ const doHashExist = (hash) => {
 };
 
 const encryptPayload = (payload) => {
-  if (typeof payload !== "string") payload = JSON.stringify(payload);
+  let timestamp = new Date().getTime();
+  payload = {payload, timestamp};
+  if(typeof payload !== 'string')  payload = JSON.stringify(payload);
   let encryptedPayload = CryptoJS.AES.encrypt(payload, SECRET_KEY).toString();
   encryptedPayload = encodeURIComponent(encryptedPayload);
   return encryptedPayload;
