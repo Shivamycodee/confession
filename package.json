@@ -10,7 +10,7 @@
       "import": "./es6m/index.js"
     }
   },
-  "type": "module", 
+  "type": "module",
   "keywords": [
     "jwt",
     "express",
@@ -23,8 +23,8 @@
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "jsonwebtoken": "^9.0.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2"
   },
   "nodemonConfig": {
     "ignore": [
