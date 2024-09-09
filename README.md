@@ -36,7 +36,7 @@ Here's an example of how to use the `@shivamycodee/confession` package in an Exp
 # Install this packges for your server code...
 
 ```bash
-npm install express cors jsonwebtoken
+npm install cors jsonwebtoken
 ```
 
 ```javascript

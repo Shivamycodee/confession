@@ -1,9 +1,16 @@
 {
   "name": "@shivamycodee/confession",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A package for a secure commuite to your server from browser.",
-  "main": "index.js",
-  "type": "commonjs",
+  "main": "commonjs/index.js",
+  "module": "es6m/index.js",
+  "exports": {
+    ".": {
+      "require": "./commonjs/index.js",
+      "import": "./es6m/index.js"
+    }
+  },
+  "type": "module", 
   "keywords": [
     "jwt",
     "express",
@@ -12,11 +19,10 @@
     "security"
   ],
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0",
-    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "cors": "^2.8.5"
   },
@@ -39,5 +45,9 @@
   "bugs": {
     "url": "https://github.com/Shivamycodee/confession/issues",
     "email": "bugs@gmail.com"
+  },
+  "browser": {
+    "jsonwebtoken": "./browser/jsonwebtoken.js",
+    "crypto": "./browser/crypto.js"
   }
 }
