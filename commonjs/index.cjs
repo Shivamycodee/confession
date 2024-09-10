@@ -15,17 +15,17 @@ function blockPostmanRequests(req, res, next) {
 
 const StoreCache = (hash) => {
   let currentTime = new Date().getTime();
-  let doExist = fs.existsSync("cache.json");
+  let doExist = fs.existsSync("cache/cache.json");
   if (doExist) {
-    let fileData = fs.readFileSync("cache.json");
+    let fileData = fs.readFileSync("cache/cache.json");
     let data;
     if (fileData?.length > 0) data = JSON.parse(fileData);
     else data = [];
     data.push({ hash: hash, time: currentTime });
-    fs.writeFileSync("cache.json", JSON.stringify(data));
+    fs.writeFileSync("cache/cache.json", JSON.stringify(data));
   } else {
     fs.writeFileSync(
-      "cache.json",
+      "cache/cache.json",
       JSON.stringify([
         {
           hash: hash,
@@ -101,15 +101,6 @@ const doHashExist = (hash) => {
   return false;
 };
 
-const encryptPayload = (payload) => {
-  let timestamp = new Date().getTime();
-  payload = {payload, timestamp};
-  if(typeof payload !== 'string')  payload = JSON.stringify(payload);
-  let encryptedPayload = CryptoJS.AES.encrypt(payload, SECRET_KEY).toString();
-  encryptedPayload = encodeURIComponent(encryptedPayload);
-  return encryptedPayload;
-};
-
 const DecryptRequest = (encryptedPayload) => {
   let bytes = CryptoJS.AES.decrypt(
     decodeURIComponent(encryptedPayload),
@@ -160,15 +151,15 @@ function generateJwtToken(payload) {
 
 const DeleteOldCache = () => {
   let currentTime = new Date().getTime();
-  let doExist = fs.existsSync("cache.json");
+  let doExist = fs.existsSync("cache/cache.json");
 
   if (doExist) {
-    let fileData = fs.readFileSync("cache.json");
+    let fileData = fs.readFileSync("cache/cache.json");
     let data = JSON.parse(fileData);
     let newData = data.filter((item) => {
       return currentTime - item.time < JWT_TOKEN_EXPIRE * 1000;
     });
-    fs.writeFileSync("cache.json", JSON.stringify(newData));
+    fs.writeFileSync("cache/cache.json", JSON.stringify(newData));
   }
 };
 

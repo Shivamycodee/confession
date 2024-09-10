@@ -1,16 +1,26 @@
 {
   "name": "@shivamycodee/confession",
-  "version": "1.0.8",
+  "version": "1.0.13",
   "description": "A package for a secure commuite to your server from browser.",
-  "main": "commonjs/index.js",
-  "module": "es6m/index.js",
+  "main": "commonjs/index.cjs",    
+  "module": "es6m/index.mjs",     
+  "type": "module",                 
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-json": "^5.0.0",
+    "rollup": "^3.0.0"
+  },
   "exports": {
     ".": {
-      "require": "./commonjs/index.js",
-      "import": "./es6m/index.js"
+      "require": "./commonjs/index.cjs", 
+      "import": "./es6m/index.mjs"     
     }
   },
-  "type": "module",
   "keywords": [
     "jwt",
     "express",
@@ -18,10 +28,6 @@
     "network",
     "security"
   ],
-  "devDependencies": {
-    "@types/bun": "latest",
-    "typescript": "^5.0.0"
-  },
   "peerDependencies": {
     "cors": "^2.8.5",
     "jsonwebtoken": "^9.0.2"
@@ -33,6 +39,7 @@
     ]
   },
   "dependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "crypto-js": "^4.2.0"
   },
   "author": "Shivam Yadav <shivamyadav8758@gmail.com> (https://shivamyadav.codes)",
@@ -45,9 +52,5 @@
   "bugs": {
     "url": "https://github.com/Shivamycodee/confession/issues",
     "email": "bugs@gmail.com"
-  },
-  "browser": {
-    "jsonwebtoken": "./browser/jsonwebtoken.js",
-    "crypto": "./browser/crypto.js"
   }
 }
