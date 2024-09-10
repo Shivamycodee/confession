@@ -31,7 +31,7 @@ npm install @shivamycodee/confession
 
 ## Usage
 
-Here's an example of how to use the `@shivamycodee/confession` package in an Express.js application:
+Here's an example of how to use the `@shivamycodee/confession` package in Node.js application:
 
 # Install this packges for your server code...
 
@@ -94,7 +94,7 @@ app.listen(PORT, () => {
 ```
 
 
-Here is how you have to wrap your call from client side for JWT TOKEN && Payload Encryption:
+Here is how you have to wrap your call from client side for JWT TOKEN & Payload Encryption:
 
 ```javascript
 
