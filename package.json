@@ -1,6 +1,6 @@
 {
   "name": "@shivamycodee/confession",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "A package for a secure commuite to your server from browser.",
   "main": "commonjs/index.cjs",
   "module": "es6m/index.mjs",
