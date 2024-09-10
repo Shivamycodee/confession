@@ -101,7 +101,7 @@ Here is how you have to wrap your call from client side for JWT TOKEN & Payload 
 import {encryptPayload,ApplySecretKey} from '@shivamycodee/confession'
 
 const SECRET_KEY = 'i3ifjnqwfin-2q938in2';
-ApplySecretKey(SECRET_KEY);
+ApplySecretKey(SECRET_KEY); // Make sure to use the same SECRET_KEY you used on server side (Mandotary)
 
 
   const getJWTToken = async(str)=>{
