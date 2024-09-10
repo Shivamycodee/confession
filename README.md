@@ -35,10 +35,6 @@ Here's an example of how to use the `@shivamycodee/confession` package in an Exp
 
 # Install this packges for your server code...
 
-```bash
-npm install cors jsonwebtoken
-```
-
 ```javascript
 const express = require('express');
 const cors = require('cors');
@@ -57,12 +53,14 @@ const PORT = 3000;
 // Middleware setup
 app.use(cors());
 app.use(express.json()); 
-app.use(verifyToken);
+
+
+app.use(verifyToken);  // middleware to protect from Replay attack, DOS and DDOS attack.
 app.use(blockPostmanRequests); // Optional: Remove if you want to allow Postman requests
 
 // Configure the package
-ApplySecretKey('i3ifjnqwfin-2q938in2')
-ApplyCacheTime(40);
+ApplySecretKey('i3ifjnqwfin-2q938in2') // Set a private key (mandatory)
+ApplyCacheTime(40); // set time (in seconds) for JWT expire time.
 
 // Route to generate JWT token
 app.get('/generateJWT/:mixer?', (req, res) => {
@@ -77,7 +75,7 @@ app.get('/generateJWT/:mixer?', (req, res) => {
     }
 })
 
-// Route to check and decrypt data
+// exampler post request.
 app.post('/checkData', (req, res) => {
     let encryptedData = req.body.encryptedData;
     let decryptedPayload = DecryptRequest(encryptedData);
@@ -86,12 +84,12 @@ app.post('/checkData', (req, res) => {
 
 // Example route
 app.get('/', (req, res) => {
-    res.send('DEAD WORLD CODE!');
+    res.send('WELCOME TO CONFESSION!');
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}... 👑`);
+    console.log(`Server started on port ${PORT}`);
 });
 ```
 
@@ -100,70 +98,50 @@ Here is how you have to wrap your call from client side for JWT TOKEN && Payload
 
 ```javascript
 
-import CryptoJS from 'crypto-js';
+import {encryptPayload,ApplySecretKey} from '@shivamycodee/confession'
 
 const SECRET_KEY = 'i3ifjnqwfin-2q938in2';
+ApplySecretKey(SECRET_KEY);
 
-const encryptPayload = (payload) => {
-    let timestamp = new Date().getTime();
-    payload = {payload, timestamp};
-    if(typeof payload !== 'string')  payload = JSON.stringify(payload);
-    let encryptedPayload = CryptoJS.AES.encrypt(payload, SECRET_KEY).toString();
-    encryptedPayload = encodeURIComponent(encryptedPayload);
-    return encryptedPayload;
-  };
 
-  const getJWTToken = async()=>{
-
+  const getJWTToken = async(str)=>{
     try{
-        const response = await axios.get('http://localhost:3000/generateJWT/fuckyou');
+        const response = await axios.get(`http://localhost:3000/generateJWT/${str}`);
         let token = response.data;
         return token;
     }catch(e){
-        console.error('fucked err : ',e)
+        console.error('getJWTToken err : ',e)
     }
 
 }
 
 // exmpalry call to server...
 
-const checkData = async()=>{
-
-    try{
-
-        let response = await getJWTToken();
-        let token = response.token;
-
-        let payload = {
+const payload = {
             name:'major',
             value: '12.233.545.65',
-            major:{
-                data:1,
-                store:343
-            }
-        }
-        
+}
 
-        let encryptedData = encryptPayload(payload);
-        console.log('token is : ',token)
+const checkData = async()=>{
+    try{
+        let str = new Date().getTime().toString();
+        let response = await getJWTToken(str); // fetch jwt token.
+        let token = response.token;
+
+        let encryptedData = encryptPayload(payload);  // encrypt your payload.
+
        await axios.post('http://localhost:3000/checkData',{encryptedData},{
             headers:{
                 'Authorization':`Bearer ${token}`,
             }
         })
-
     }catch(e){
         console.error('err in checkData...',e)
     }
-
 }
 
 
 ```
-
-
-## API Reference
-
 ### Middleware
 
 - `verifyToken`: Middleware to verify JWT tokens in incoming requests.
@@ -189,7 +167,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Upcomming updates
 
-1. Support to both CommonJS and ES6 modules.
+1. Support to both CommonJS and ES6 modules. (✅)
 2. More type of request security if needed.
 
 ## License
