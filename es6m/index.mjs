@@ -13,7 +13,6 @@ const encryptPayload = (payload) => {
   if(!payload) throw new Error('Payload is required');
   let timestamp = new Date().getTime();
   payload = { payload, timestamp };
-  if (typeof payload !== 'object') payload = JSON.stringify(payload);
   let encryptedPayload = CryptoJS.AES.encrypt(JSON.stringify(payload), SECRET_KEY).toString();
   encryptedPayload = encodeURIComponent(encryptedPayload);
   return encryptedPayload;

@@ -1,10 +1,10 @@
 {
   "name": "@shivamycodee/confession",
-  "version": "1.0.13",
+  "version": "1.0.22",
   "description": "A package for a secure commuite to your server from browser.",
-  "main": "commonjs/index.cjs",    
-  "module": "es6m/index.mjs",     
-  "type": "module",                 
+  "main": "commonjs/index.cjs",
+  "module": "es6m/index.mjs",
+  "type": "commonjs",
   "scripts": {
     "build": "rollup -c"
   },
@@ -17,8 +17,8 @@
   },
   "exports": {
     ".": {
-      "require": "./commonjs/index.cjs", 
-      "import": "./es6m/index.mjs"     
+      "require": "./commonjs/index.cjs",
+      "import": "./es6m/index.mjs"
     }
   },
   "keywords": [
@@ -34,13 +34,14 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "cache.json",
-      "/cache.json"
+      "./commonjs/cache-confession/cache.json",
+      "./commonjs/cache-confession/*.json"
     ]
   },
   "dependencies": {
     "@rollup/plugin-terser": "^0.4.4",
-    "crypto-js": "^4.2.0"
+    "crypto-js": "^4.2.0",
+    "express": "^4.20.0"
   },
   "author": "Shivam Yadav <shivamyadav8758@gmail.com> (https://shivamyadav.codes)",
   "license": "MIT",

@@ -1,6 +1,11 @@
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const path = require("path");
+
+const cacheFilePath = path.join(__dirname, 'cache-confession', 'cache.json');
+const cacheFolderPath = path.join(__dirname, 'cache-confession');
+
 
 let SECRET_KEY = null;
 let JWT_TOKEN_EXPIRE = 0; // time in seconds && cache clean time...
@@ -14,26 +19,36 @@ function blockPostmanRequests(req, res, next) {
 }
 
 const StoreCache = (hash) => {
-  let currentTime = new Date().getTime();
-  let doExist = fs.existsSync("cache/cache.json");
-  if (doExist) {
-    let fileData = fs.readFileSync("cache/cache.json");
-    let data;
-    if (fileData?.length > 0) data = JSON.parse(fileData);
-    else data = [];
-    data.push({ hash: hash, time: currentTime });
-    fs.writeFileSync("cache/cache.json", JSON.stringify(data));
-  } else {
-    fs.writeFileSync(
-      "cache/cache.json",
-      JSON.stringify([
-        {
-          hash: hash,
-          time: currentTime,
-        },
-      ])
-    );
-  }
+
+  try{
+
+    let currentTime = new Date().getTime();
+    let doExist = fs.existsSync(cacheFilePath);
+    if (doExist) {
+      let fileData = fs.readFileSync(cacheFilePath);
+      let data;
+      if (fileData?.length > 0) data = JSON.parse(fileData);
+      else data = [];
+      data.push({ hash: hash, time: currentTime });
+      fs.writeFileSync(cacheFilePath, JSON.stringify(data));
+    } else {
+      fs.mkdirSync(cacheFolderPath);
+      fs.writeFileSync(
+        cacheFilePath,
+        JSON.stringify([
+          {
+            hash: hash,
+            time: currentTime,
+          },
+        ])
+        );
+
+      }
+      
+    }catch(e){
+      console.log('store cache err : ',e)
+    }
+      
 };
 
 const ApplySecretKey = (key) => {
@@ -77,7 +92,7 @@ async function verifyToken(req, res, next) {
 }
 
 const doHashExist = (hash) => {
-  let doExist = fs.existsSync("cache.json");
+  let doExist = fs.existsSync(cacheFilePath);
 
   let decryptHash = DecryptRequest(hash);
   let reqTime = decryptHash.timestamp;
@@ -87,7 +102,7 @@ const doHashExist = (hash) => {
   }
 
   if (doExist) {
-    let fileData = fs.readFileSync("cache.json");
+    let fileData = fs.readFileSync(cacheFilePath);
     let data = JSON.parse(fileData);
     if (data?.length == 0) return false;
     let doExist = data.find((item) => {
@@ -151,15 +166,15 @@ function generateJwtToken(payload) {
 
 const DeleteOldCache = () => {
   let currentTime = new Date().getTime();
-  let doExist = fs.existsSync("cache/cache.json");
+  let doExist = fs.existsSync(cacheFilePath);
 
   if (doExist) {
-    let fileData = fs.readFileSync("cache/cache.json");
+    let fileData = fs.readFileSync(cacheFilePath);
     let data = JSON.parse(fileData);
     let newData = data.filter((item) => {
       return currentTime - item.time < JWT_TOKEN_EXPIRE * 1000;
     });
-    fs.writeFileSync("cache/cache.json", JSON.stringify(newData));
+    fs.writeFileSync(cacheFilePath, JSON.stringify(newData));
   }
 };
 

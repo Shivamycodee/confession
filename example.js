@@ -7,17 +7,17 @@ const {
   verifyToken,
   ApplySecretKey,
   ApplyCacheTime
-} = require('@shivamycodee/confession')
+} = require('../confession/commonjs/index.cjs')
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(express.json()); 
 app.use(verifyToken);
-app.use(blockPostmanRequests);
+// app.use(blockPostmanRequests);
 
 ApplySecretKey('i3ifjnqwfin-2q938in2')
-ApplyCacheTime(40); // 40 seconds...
+ApplyCacheTime(59); // 59 seconds...
 
 app.get('/generateJWT/:mixer?',(req,res)=>{
 

@@ -1,10 +1,10 @@
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
-import terser from '@rollup/plugin-terser';
-import babel from '@rollup/plugin-babel';
-import json from '@rollup/plugin-json';
+const commonjs = require('@rollup/plugin-commonjs');
+const resolve = require('@rollup/plugin-node-resolve');
+const terser = require('@rollup/plugin-terser');
+const babel = require('@rollup/plugin-babel');
+const json = require('@rollup/plugin-json');
 
-export default [
+module.exports = [
   {
     input: 'es6m/index.mjs', // Your ES6 module entry point
     output: {
